@@ -1,0 +1,64 @@
+// code to check is a given matrix is symmetric or not
+// a matrix is said to be symmetric if its transpose equals to the matrix itself
+// for a symmetric matrix, the number of rows = number of columns always
+
+#include <stdio.h>
+
+int main()
+{
+    int rc;
+    int flag = 0;
+    printf("Enter the number of rows or columns (both are same here in this code) - ");
+    scanf("%d", &rc);
+    int mat[rc][rc], transpose[rc][rc];
+    printf("\n");
+    printf("Enter elements of matrix - ");
+    printf("\n");
+    for (int i = 0; i < rc; i++)
+    {
+        for (int j = 0; j < rc; j++)
+        {
+            scanf("%d", &mat[i][j]);
+        }
+    }
+    printf("\n");
+    printf("\n");
+    printf("Matrix created as - \n");
+    for (int i = 0; i < rc; i++)
+    {
+        for (int j = 0; j < rc; j++)
+        {
+            printf("%d\t", mat[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    printf("\n");
+    for (int i = 0; i < rc; i++)
+    {
+        for (int j = 0; j < rc; j++)
+        {
+            transpose[j][i] = mat[j][i];
+        }
+    }
+    for (int i = 0; i < rc; i++)
+    {
+        for (int j = 0; j < rc; j++)
+        {
+            if (i != j && transpose[j][i] == mat[i][j])
+            {
+                flag = 1;
+            }
+        }
+    }
+    if (flag == 1)
+    {
+        printf("The matrix is symmetric.\n");
+    }
+    else
+    {
+        printf("The matrix is not symmetric.\n");
+    }
+
+    return 0;
+}

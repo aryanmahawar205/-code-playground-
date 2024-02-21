@@ -1,0 +1,9 @@
+array is a pointer
+
+consider these 2 statements
+
+int *ptr = &arr[0];
+     or
+int *ptr = arr
+
+now both these statements have the same meaning because array is a pointer pointing to the 0th element in the array
