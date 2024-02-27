@@ -32,21 +32,21 @@ int main()
     scanf("%d", &elm);
 
     int *arr_ptr = arr;
-    int flag = 0;
+    bool flag = false;
     for (int i = 0; i < size; i++)
     {
         if (arr_ptr[i] == elm)
         {
-            flag = 1;
+            flag = true;
             break;
         }
     }
 
-    if (flag == 1)
+    if (flag == true)
     {
         printf("\n\nYes, the element %d is present in the array\n", elm);
     }
-    else if (flag == 0)
+    else if (flag == false)
     {
         printf("\n\nNo, the element %d is not present in the array\n", elm);
     }
