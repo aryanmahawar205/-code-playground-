@@ -35,8 +35,8 @@ int main()
         printf("%d ", copy[i]);
     }
 
-    //free(original);
-    //free(copy);
+    free(original);
+    free(copy);
 
     return 0;
 }
