@@ -32,4 +32,6 @@ int main()
         printf("Minutes of %d input is %d\n",i+1, inputs[i].minutes);
         printf("Seconds of %d input is %d\n",i+1, inputs[i].seconds);
     }
+
+    return 0;
 }
