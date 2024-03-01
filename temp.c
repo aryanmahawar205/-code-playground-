@@ -1,54 +1,37 @@
 #include <stdio.h>
-#include <string.h>
 
-void delete(char string[], char substr[]);
+int main() {
+    char name[100];
+    int is_first_word = 1;  // Flag to indicate if processing the first word
 
-int main()
-{
-  // test string
-  char string[] = "Hate the sin, love the sinner";
-  
-  // print the string before removing the substring
-  printf("Before: %s\n", string);
-  
-  // remove the substring "the "
-  delete(string, "the ");
-  
-  // print the string after removing the substring
-  printf("After: %s\n", string);
-  
-  return 0;
-}
+    printf("Enter your name: ");
+    fgets(name, sizeof(name), stdin);
 
-// deletes all occurrences of substr that occur in string
-void delete(char string[], char substr[])
-{
-  // i is used to loop through the string
-  int i = 0;
+    // Iterate through the name string
+    for (int i = 0; name[i] != '\n'; i++) {
+        char ch = name[i];
 
-  // store the lengths of the string and substr
-  int string_length = strlen(string);
-  int substr_length = strlen(substr);
-  
-  // loop through the string keeping track of our current index with i, 
-  // starting at the first index
-  while (i < string_length)
-  {
-    // if we find the substr at the current index, delete it
-    if (strstr(&string[i], substr) == &string[i])
-    {
-      // determine the string's new length after removing the substr occurrence
-      string_length -= substr_length;
-      
-      // shift forward the remaining characters in the string after the substr 
-      // occurrence by the length of substr, effectively removing it!
-      for (int j = i; j < string_length; j++)
-        string[j] = string[j + substr_length];
+        // Print the first letter of the first name (or title if no space before)
+        if (is_first_word && (ch >= 'A' && ch <= 'Z')) {
+            printf("%c", ch);
+            is_first_word = 0;
+        } else if (is_first_word && (ch >= 'a' && ch <= 'z')) {
+            printf("%c", ch - 32);  // Convert lowercase to uppercase
+            is_first_word = 0;
+        }
+
+        // Print the first letter of each subsequent word (middle name)
+        else if (ch != ' ' && name[i-1] == ' ') {
+            if (ch >= 'A' && ch <= 'Z') {
+                printf("%c", ch);
+            } else if (ch >= 'a' && ch <= 'z') {
+                printf("%c", ch - 32);  // Convert lowercase to uppercase
+            }
+        }
+
+        // Print all other characters (including spaces)
+        printf("%c", ch);
     }
-    else i++;
-  }
-  
-  // put a null terminator at the end of the string 
-  string[i] = '\0';
-  
+
+    return 0;
 }
