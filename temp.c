@@ -1,37 +1,71 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main() {
-    char name[100];
-    int is_first_word = 1;  // Flag to indicate if processing the first word
+char* largest_word(char *s);
 
-    printf("Enter your name: ");
-    fgets(name, sizeof(name), stdin);
+int main()
+{
+  char s[] = "A sentence with several words.";
+  char *word = largest_word(s);
+  printf("%s\n", word);
+  
+  free(word);
+  
+  return 0;
+}
 
-    // Iterate through the name string
-    for (int i = 0; name[i] != '\n'; i++) {
-        char ch = name[i];
+char* largest_word(char *s)
+{
+  int len = strlen(s);
 
-        // Print the first letter of the first name (or title if no space before)
-        if (is_first_word && (ch >= 'A' && ch <= 'Z')) {
-            printf("%c", ch);
-            is_first_word = 0;
-        } else if (is_first_word && (ch >= 'a' && ch <= 'z')) {
-            printf("%c", ch - 32);  // Convert lowercase to uppercase
-            is_first_word = 0;
-        }
+  int count = 0;
 
-        // Print the first letter of each subsequent word (middle name)
-        else if (ch != ' ' && name[i-1] == ' ') {
-            if (ch >= 'A' && ch <= 'Z') {
-                printf("%c", ch);
-            } else if (ch >= 'a' && ch <= 'z') {
-                printf("%c", ch - 32);  // Convert lowercase to uppercase
-            }
-        }
+  int max = -1;
+  char temp_buffer[256];
 
-        // Print all other characters (including spaces)
-        printf("%c", ch);
+  char max_word[256];
+
+  char nonwords[] = " .,;\n\t";
+  
+  int i = 0;
+  while (i < len)
+  {
+    count = 0;
+    while (i < len)
+    {
+      if (strchr(nonwords, s[i]) != NULL)
+      {
+          break;
+      }
+      
+      else
+      {
+          temp_buffer[count] = s[i];
+          i++;
+          count++;
+      }
     }
-
-    return 0;
+    temp_buffer[count] = '\0';
+    if (count > max)
+    {
+      max = count;
+      strcpy(max_word, temp_buffer);
+    }
+    
+    while (i < len)
+    {
+      if (strchr(nonwords, s[i]) == NULL)
+      {
+        break;
+      }
+      else
+      {
+        i++;
+      }
+    }
+  }
+  char *word = malloc(sizeof(char) * (max + 1));
+  strcpy(word, max_word);
+  return word;
 }
