@@ -1,71 +1,80 @@
+//this code will ask the user to enter a sentence which will be passed to a function that detects and prints out the longest word in
+//that sentence
+//eg, if sentence is - "This is real mesmerization", then the output should be "mesmerization" is the longest word
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-char* largest_word(char *s);
+char* largestWord(char *s);
 
 int main()
 {
-  char s[] = "A sentence with several words.";
-  char *word = largest_word(s);
-  printf("%s\n", word);
+    char s[] = "This is real mesmerization.";
+
+    char *word = largest_word(s);
+
+    printf("%s\n", word);
   
-  free(word);
+    free(word);
   
-  return 0;
+    return 0;
 }
 
-char* largest_word(char *s)
+char* largestWord(char *s)
 {
-  int len = strlen(s);
+    int len = strlen(s);
+    int count = 0;
+    int max = 0;
 
-  int count = 0;
+    char buffer_word[300];
+    char max_word[300];
 
-  int max = -1;
-  char temp_buffer[256];
-
-  char max_word[256];
-
-  char nonwords[] = " .,;\n\t";
+    char delimiters[] = " .,;\n\t";
   
-  int i = 0;
-  while (i < len)
-  {
-    count = 0;
+    int i = 0;
     while (i < len)
     {
-      if (strchr(nonwords, s[i]) != NULL)
+      count = 0;
+      while (i < len)
       {
-          break;
-      }
+        if (strchr(delimiters, s[i]) != NULL)
+        {
+            break;
+        }
       
-      else
-      {
-          temp_buffer[count] = s[i];
-          i++;
-          count++;
+        else
+        {
+            buffer_word[count] = s[i];
+            i++;
+            count++;
+        }
       }
-    }
-    temp_buffer[count] = '\0';
-    if (count > max)
-    {
-      max = count;
-      strcpy(max_word, temp_buffer);
-    }
+
+      buffer_word[count] = '\0';
+
+      if (count > max)
+      {
+        max = count;
+        strcpy(max_word, buffer_word);
+      }
     
-    while (i < len)
-    {
-      if (strchr(nonwords, s[i]) == NULL)
+      while (i < len)
       {
-        break;
-      }
-      else
-      {
-        i++;
+        if (strchr(delimiters, s[i]) == NULL)
+        {
+          break;
+        }
+        else
+        {
+          i++;
+        }
       }
     }
-  }
-  char *word = malloc(sizeof(char) * (max + 1));
-  strcpy(word, max_word);
-  return word;
+
+    char *word;
+    word = (char *)malloc(sizeof(char)*(max + 1));
+    strcpy(word, max_word);
+
+    return word;
 }
