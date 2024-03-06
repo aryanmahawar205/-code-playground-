@@ -5,60 +5,28 @@
 
 #include <stdio.h>
 #include <string.h>
-
-void namePrinter();
+#include <ctype.h>
+#include <stdbool.h>
 
 int main()
 {
-    char name[100];
-    
-    printf("\nEnter your name - ");
-    fgets(name, 100, stdin);
-    printf("\n");
+    char name[] = "High Definition Multimedia Interface";
 
-    puts(name);
+    int length = strlen(name);
+    bool reading_word = false;
 
-    //printf("\n%s", strtok(name, " ")); first name
-    
-    
-    //printf("\n%s", strtok(NULL, " "));  middle name
-
-
-    //printf("\n%s", strtok(NULL, " ")); last name
-
-    char *first[100];
-    char *middle[100];
-    char *last[100];
-
-    *first = strtok(name, " ");
-    *middle = strtok(NULL, " ");
-    *last = strtok(NULL, " ");
-
-    printf("\n%s", *first);
-    printf("\n%s", *middle);
-    printf("\n%s", *last);
-
-    printf("\n\n\n\n");
-
-    char firstChar;
-    
-    firstChar = *first[0];
-
-    char twoName[3];
-    
-    twoName[0] = firstChar;
-    twoName[1] = '.';
-    twoName[2] = '\0';
-    
-    char *createName2 = strcat(twoName, middle[0]);
-    char *createName3 = strcat(createName2, ".");
-    char *createName4 = strcat(createName3, *last);
-
-    printf("---------");
-    
-    printf("\n%s", twoName);
-
-    
+    for (int i = 0; i < length; i++)
+    {
+        if (!reading_word && isalpha(name[i]))
+        {
+            reading_word = true;
+            printf("%c.", name[i]);
+        }
+        else if (reading_word && !isalpha(name[i]))
+        {
+            reading_word = false;
+        }
+    }
 
     return 0;
 }
