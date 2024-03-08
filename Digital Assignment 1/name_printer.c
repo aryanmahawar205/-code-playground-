@@ -42,7 +42,6 @@ int main()
             reading_word = true;
             printf("%c.", name[i]);
         }
-        //here is where the white spaces are taken care of
         //when a white space is encountered, this else if block produces a true result and reading_word is set to false
         //once again the if block is executed since this time around we actually have encountered a white space
         //which means that a new word is about to begin after that space
