@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
+//defining a custom structure to hold the various parameters of the item in Inventory
 typedef struct itemsParameters
 {
     char itemName[100];
@@ -15,48 +16,54 @@ typedef struct itemsParameters
     int quantity;
 }items;
 
-void inputInventory(items details[], int numberOfItems);
+void inputInventory(items details[], int numberOfItems); //function declared to take input and populate to the Inventory
 
-void correctInventory(items details[], int numberOfItems);
+void correctInventory(items details[], int numberOfItems); //function declared to correct the Inventory quantity to a particular item as mentioned in the problem statement
 
-void displayInventory(items details[], int numberOfItems);
+void displayInventory(items details[], int numberOfItems); //function declared to display the Inventory contents
 
 int main()
 {
     int numberOfItems;
-    printf("Enter the number of items you want to have in the inventory system - ");
+    printf("\nEnter the number of items you want to have in the inventory system - ");
     scanf("%d", &numberOfItems);
 
+    //checking if the number of elements in the Inventory are <= 15
     if (numberOfItems > 15)
     {
-        printf("Inventory System cannot have more than 15 items!");
+        printf("\nSorry, Inventory System cannot have more than 15 items!\n");
     }
 
     else if (numberOfItems <= 15)
     {
-        items details[numberOfItems];
+        items details[numberOfItems]; //declaring an array of type items as defined in the structure above
 
-        inputInventory(details, numberOfItems);
+        inputInventory(details, numberOfItems); //function call to input the Inventory
 
-        char checker;
+        char checker; //check variable to verify if the user wishes to change any of the Inventory quantity for any item
 
         printf("Do you wish to make changes to any of the items in your inventory system? (y/n) - ");
         scanf(" %c", &checker);
 
+        //this block handles if there is a correction in the Inventory and displays the corrected Inventory
         if (checker == 'y')
         {
-            correctInventory(details, numberOfItems);
-            displayInventory(details, numberOfItems);
+            correctInventory(details, numberOfItems); //function call to correct the Inventory quantity
+            printf("\n\n----------YOUR INVENTORY DATA IS AS FOLLOWS----------\n");
+            displayInventory(details, numberOfItems); //function call to display the Inventory
         }
 
+        //this block displays the Inventory when no correction is to be made in the Inventory
         else if (checker == 'n')
         {
-            displayInventory(details, numberOfItems);
+            printf("\n\n----------YOUR INVENTORY DATA IS AS FOLLOWS----------\n");
+            displayInventory(details, numberOfItems); //function call to display the Inventory
         }
     }    
     return 0;
 }
 
+//function definition to input the contents of the Inventory
 void inputInventory(items details[], int numberOfItems)
 {
     for (int i = 0; i < numberOfItems; i++)
@@ -64,46 +71,53 @@ void inputInventory(items details[], int numberOfItems)
             printf("\nEnter the name of the item whose inventory you wish to populate - ");
             scanf("%s", details[i].itemName);
 
-            printf("\nEnter the price per unit of the above said inventory item - ");
+            printf("Enter the price per unit of the above said inventory item - ");
             scanf("%d", &details[i].pricePerItem);
 
-            printf("\nEnter the quantity of the above said inventory item - ");
+            printf("Enter the quantity of the above said inventory item - ");
             scanf("%d", &details[i].quantity);
         }
 
-        printf("\n\n");
+        printf("\n");
 }
 
+//function definition to correct the Inventory quantity of a said item (user - input)
 void correctInventory(items details[], int numberOfItems)
 {
     char name[100];
-    printf("Enter the name of the item whose inventory you wish to modify - ");
+    printf("\nEnter the name of the item whose inventory you wish to modify - ");
     scanf("%s", name);
+
+    int isAvailable = 0;
 
     for (int i = 0; i < numberOfItems; i++)
     {
         if (strcmp(name, details[i].itemName) == 0)
         {
-            printf("\nEnter the new price per unit of the above said inventory item - ");
-            scanf("%d", &details[i].pricePerItem);
-
             printf("\nEnter the new quantity of the above said inventory item - ");
             scanf("%d", &details[i].quantity);
+            isAvailable = 1;
         }
+    }
+
+    if (isAvailable == 0)
+    {
+        printf("\nSorry, item entered does not exist already in Inventory!");
     }
 }
 
+//function definition to print the Inventory contents, such as the total number of items and the total cost
 void displayInventory(items details[], int numberOfItems)
 {
     int totalPieces = 0;
     int totalCost = 0;
 
     for (int i = 0; i < numberOfItems; i++)
-        {
-            totalPieces += details[i].quantity;
-            totalCost += details[i].quantity * details[i].pricePerItem;
-        }
-
-        printf("Total Pieces - %d\n", totalPieces);
-        printf("Total Cost - %d\n", totalCost);
+    {
+        totalPieces += details[i].quantity;
+        totalCost += details[i].quantity * details[i].pricePerItem;
+    }
+    printf("\n");
+    printf("Total Pieces in Inventory - %d\n", totalPieces);
+    printf("Total Cost of all Items - %d\n", totalCost);
 }
