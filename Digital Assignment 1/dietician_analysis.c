@@ -27,7 +27,7 @@ int main()
     return 0;
 }
 
-//function definiton of weightSum which calculates the sum of all the weights in the array using pointers
+//function definition of weightSum which calculates the sum of all the weights in the array using pointers
 //also this function in turn gives call to the weightMean function
 void weightSum(int *weights, int n)
 {
