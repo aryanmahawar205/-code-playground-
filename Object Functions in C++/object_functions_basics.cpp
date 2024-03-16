@@ -21,7 +21,7 @@ class Student
 
         bool hasHonours() //object function
         {
-            if (gpa > 9.00)
+            if (gpa > 9.00) //corresponding gpa to each object checked
             {
                 return true;
             }
