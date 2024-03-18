@@ -21,6 +21,7 @@ class Movie
             setRating(aRating);
         }
 
+        //setter function
         void setRating(string aRating)
         {
             if (aRating == "G" || aRating == "PG-13" || aRating == "PG" || aRating == "R" || aRating == "NR")
@@ -33,6 +34,7 @@ class Movie
             }
         }
 
+        //getter function
         string getRating()
         {
             return rating;
