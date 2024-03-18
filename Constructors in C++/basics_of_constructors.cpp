@@ -1,5 +1,6 @@
-//a constructor is a special function that gets called when you create an object for a class
+//a constructor is a special member function that gets called when you create an object for a class
 //remember that constructor function names are the same as the class name in which they are defined
+//they generally do the set-up work for an object
 
 #include <iostream>
 
