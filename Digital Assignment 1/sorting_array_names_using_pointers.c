@@ -5,20 +5,20 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
+typedef struct strings
 {
-    char strings[10][100] = {"demonstration", "apple", "joyful", "friends", "battle", "incredible", "example", "great", "happy", "city"};
+	char var[50];
+}str;
 
-    int length = 10;
-
-    char temp[100];
-
-    for (int i = 0; i < (length -1); i++)
+void sorter(str ss[], int n)
+{
+	char t[50];
+	for (int i = 0; i < (n - 1); i++)
     {
         int min = i;
-        for (int j = i + 1; j < length; j++)
+        for (int j = i + 1; j < n; j++)
         {
-            if (strcmp(strings[j], strings[min]) < 0)
+            if (strcmp(ss[j].var, ss[min].var) < 0)
             {
                 min = j;
             }
@@ -26,15 +26,31 @@ int main()
 
         if (min != i)
         {
-            strcpy(temp, strings[i]);
-            strcpy(strings[i], strings[min]);
-            strcpy(strings[min], temp);
+            strcpy(t, ss[i].var);
+            strcpy(ss[i].var, ss[min].var);
+            strcpy(ss[min].var, t);
         }
     }
+}
 
-    for (int i = 0; i < length; i++)
+int main()
+{	
+    int n;
+	printf("Enter the number of elements - ");
+	scanf("%d", &n);
+	str s[n], *s1[n];
+	
+	for (int i = 0; i < n; i++)
+	{
+		scanf("%s", s[i].var);
+		s1[i] = &s[i];
+	}
+
+	sorter(s, n);
+	
+    for (int i = 0; i < n; i++)
     {
-        printf("%s\n", strings[i]);
+        printf("%s\n", s1[i]->var);
     }
 
     return 0;
