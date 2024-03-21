@@ -1,0 +1,70 @@
+1. You are developing a program to manage a library system.
+Each book in the library has attributes such as title, author, genre, and availability status.
+You need to create a Book class with appropriate member variables and methods to represent a book in the library system.
+
+
+
+2. Write a C++ class definition for the Book class that includes member variables for title, author, genre, and availability status.
+Include appropriate getter and setter methods for each member variable.
+Additionally, include a method to display the details of the book.
+
+
+10 scenario-based C++ questions:
+
+1. You are creating a program for a car dealership.
+Write a class named "Car" with attributes like brand, model, year, and price.
+Include appropriate getter and setter methods.
+
+
+
+2. You are developing a game.
+Write a class "Player" with attributes like name, score, and level.
+Include methods to increase score, level up and display player details.
+
+
+
+3. You are creating a program for a bank.
+Write a class "Account" with attributes like account number, account holder name, and balance.
+Include methods for deposit, withdrawal, and checking balance.
+
+
+
+4. You are developing a program for a school.
+Write a class "Student" with attributes like name, grade, and marks in different subjects.
+Include methods to calculate the average mark and display student details.
+
+
+
+5. You are creating a program for a music player.
+Write a class "Song" with attributes like song name, artist, and duration.
+Include methods to play, pause, and stop the song.
+
+
+
+6. You are developing a program for a movie theater.
+Write a class "Movie" with attributes like movie name, director, and duration.
+Include methods to start, pause, and stop the movie.
+
+
+
+7. You are creating a program for a shopping cart.
+Write a class "Item" with attributes like item name, price, and quantity.
+Include methods to add, remove, and update the quantity of the item.
+
+
+
+8. You are developing a program for a restaurant.
+Write a class "Dish" with attributes like dish name, ingredients, and price.
+Include methods to prepare, serve, and bill the dish.
+
+
+
+9. You are creating a program for a hospital.
+Write a class "Patient" with attributes like patient name, disease, and doctor assigned.
+Include methods to admit, treat, and discharge the patient.
+
+
+
+10. You are developing a program for a travel agency.
+Write a class "Trip" with attributes like destination, duration, and cost.
+Include methods to book, cancel, and modify the trip.
