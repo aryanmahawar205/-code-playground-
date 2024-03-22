@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-char* day_name(int number);
+char* day_name(int number); //character pointer function declared
 
 int main()
 {
@@ -16,16 +16,19 @@ int main()
 
     printf("\n");
 
-    char* dayName = day_name(number-1);
+    char* dayName = day_name(number-1); //function called to get the day name
     printf("%s\n\n", dayName);
 
     return 0;
 }
 
+//function definiton of day_name
 char* day_name(int number)
 {
+    //declaring static character array of day names
     static char* days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
+    //performing a check if the entered number lies within 1 to 7 and returning the corresponding day name
     if (number >= 0 && number < 7)
     {
         printf("The day corresponding to the number %d is - ", number+1);
@@ -36,15 +39,3 @@ char* day_name(int number)
         return "Invalid Day Number!";
     }
 }
-
-
-// int main() {
-//     int dayNumber;
-//     scanf("%d", &dayNumber);
-
-//     char* dayName = day_name(dayNumber-1);
-//     printf(" %s\n", dayName);
-
-//     return 0;
-// }
-// */
