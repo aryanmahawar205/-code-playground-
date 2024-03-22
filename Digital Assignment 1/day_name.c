@@ -22,7 +22,7 @@ int main()
     return 0;
 }
 
-//function definiton of day_name
+//function definition of day_name
 char* day_name(int number)
 {
     //declaring static character array of day names
