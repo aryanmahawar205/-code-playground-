@@ -5,7 +5,7 @@
 //usually contains objects are arguments -- POINT TO BE NOTED (1)
 //can be declared as friend in public or private section of the class
 //cannot access members directly by their names and needs object_name.member_name to access members, hence POINT TO BE NOTED (1) is worthy of mention 
-
+//a function can also be made friend to multiple classes
 
 #include <iostream>
 
