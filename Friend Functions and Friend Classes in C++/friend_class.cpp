@@ -26,6 +26,10 @@ class Complex
     friend int Calculator :: sumRealComplex(Complex, Complex);
     friend int Calculator :: sumCompComplex(Complex, Complex);
 
+    //ALTERNATINGLY WE COULD DECLARE THE ENTIRE CLASS AS FRIEND 
+    //in this way, all functions if Calculator class can access private members of Complex class
+    //friend class Calculator;
+
 public:
     void setNumber(int n1, int n2)
     {
