@@ -10,6 +10,8 @@ using namespace std;
 class BaseClass1
 {
     public:
+        int value;
+
         void function1()
         {
             cout << "BaseClass1 function1" << endl;
@@ -19,6 +21,8 @@ class BaseClass1
 class BaseClass2
 {
     public:
+        int value;
+
         void function1()
         {
             cout << "BaseClass2 function1" << endl;
@@ -43,9 +47,16 @@ class DerivedClass : public BaseClass1, public BaseClass2
 };
 
 //to fix this ambiguity issue, we can specify the name of the BaseClass (1 or 2) whose function1 we wish to access by the :: operator
+//the same ambiguity could occur with member variables too as demonstrated
 int main()
 {
     DerivedClass derived;
+
+    //derived.value = 20; - ambiguous statement
+
+    derived.BaseClass1 :: value = 20;
+    derived.BaseClass2 :: value = 50;
+
     derived.BaseClass1 :: function1();
     derived.BaseClass2 :: function1();
 
