@@ -29,7 +29,7 @@ class Reference_Book : public Book
     public:
         void display()
         {
-            cout << "display function of the derived class Reference_Book has been invoked (function overriding)" << endl;
+            cout << "display function of the derived class Reference_Book has been invoked (function overriding)" << endl << endl;
             cout << "Your book is " << name << " by " << author << endl << endl;
         }
 };
@@ -39,7 +39,7 @@ class Magazine : public Book
     public:
         void display()
         {
-            cout << "display function of the derived class Magazine has been invoked (function overriding)" << endl;
+            cout << "display function of the derived class Magazine has been invoked (function overriding)" << endl << endl;
             cout << "Your book is " << name << " by " << author << endl << endl;
         }
 };
@@ -50,19 +50,19 @@ int main()
     cout << endl;
     cout << "What type of Book object you wish to create? (Enter 1 for a Reference Book or 2 for a Magazine) - ";
     cin >> type;
+    cin.clear(); cin.sync();
     cout << endl;
 
     if (type == 1)
     {
-        Reference_Book rb; string referenceBookName, referenceBookAuthor;
+        Reference_Book rb;
+        string referenceBookName, referenceBookAuthor;
 
         cout << "Enter the name of your Reference Book - ";
-        cin >> referenceBookName;
-
-        cout << endl;
+        getline(cin, referenceBookName);
 
         cout << "Enter the name of the Reference Book author - ";
-        cin >> referenceBookAuthor;
+        getline(cin, referenceBookAuthor);
 
         cout << endl;
 
@@ -74,12 +74,10 @@ int main()
         Magazine m; string magazineName, magazineAuthor;
 
         cout << "Enter the name of your Magazine - ";
-        cin >> magazineName;
-
-        cout << endl;
+        getline(cin, magazineName);
 
         cout << "Enter the name of the Magazine author - ";
-        cin >> magazineAuthor;
+        getline(cin, magazineAuthor);
 
         cout << endl;
 
