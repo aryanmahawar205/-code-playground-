@@ -1,4 +1,4 @@
-//this code explains the very basic need of this keyword / this pointer is general through a simple example in code
+//this code explains the very basic need of this keyword / this pointer is general through a simple example
 
 #include <iostream>
 
