@@ -1,0 +1,10 @@
+Most of the Arithmetic Operators can be overloaded in C++
+
+There are a few inbuilt operators which hold special meaning to the compiler which cannot be overloaded under any circumstances...
+
+They are - Scope Resolution Operator (::)
+	 - sizeof() Operator
+	 - member selector / dot Operator (.)
+	 - member pointer selector / star Operator (*)
+	 - Ternary Operator (?:)
+	 - Object Type Operator (typeid)
