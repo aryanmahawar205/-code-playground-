@@ -1,0 +1,7 @@
+Polymorphism in C++ means "one name - many forms"
+
+It is broadly classified into two categories namely Compile Time Polymorphism and Run Time Polymorphism
+
+Compile Time Polymorphism can be achieved by two methods namely Function Overloading and Operator Overloading
+
+Run Time Polymorphism involves concepts of Virtual Functions and Abstract Classes
