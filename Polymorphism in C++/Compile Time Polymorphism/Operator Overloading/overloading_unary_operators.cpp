@@ -1,11 +1,3 @@
-// Number operator + (const Number &num_obj)
-//         {
-//             let us output what this -> n and num_obj.n actually are for better clarity
-//             cout << "First Number to be added (essentially this -> n) - " << this -> n << endl;
-//             cout << "Second Number to be added (essentially num_obj.n) - " << num_obj.n << endl;
-//             return (this -> n + num_obj.n);
-//         }
-
 #include <iostream>
 
 using namespace std;
