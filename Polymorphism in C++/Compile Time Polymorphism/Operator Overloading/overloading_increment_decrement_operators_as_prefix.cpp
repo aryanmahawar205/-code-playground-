@@ -28,7 +28,7 @@ class Mark
 
         void operator ++ ()
         {
-            mark = mark + 1;
+            this->mark = this->mark + 1;
         }
 };
 
