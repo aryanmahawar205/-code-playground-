@@ -5,6 +5,7 @@
 
 class Mark
 {
+    //declaring operator function for -- prefix operator as friend
     friend void operator -- (Mark &obj);
 
     private:
@@ -26,12 +27,14 @@ class Mark
             std::cout << "Your mark is - " << mark << std::endl;
         }
 
+        //overloading ++ prefix operator using member function
         void operator ++ ()
         {
             this->mark = this->mark + 1;
         }
 };
 
+//function definition to overload -- prefix operator
 void operator -- (Mark &obj)
 {
     obj.mark = obj.mark - 1;
