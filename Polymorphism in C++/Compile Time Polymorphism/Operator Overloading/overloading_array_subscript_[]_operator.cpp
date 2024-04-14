@@ -15,6 +15,7 @@ class Mark
             sub_marks[0] = sub1; sub_marks[1] = sub2; sub_marks[2] = sub3;
         }
 
+        //overloading [] operator using non-static member function
         int operator [] (int position)
         {
             return sub_marks[position];
