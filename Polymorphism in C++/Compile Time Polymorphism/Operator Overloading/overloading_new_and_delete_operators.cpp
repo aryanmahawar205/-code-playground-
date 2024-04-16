@@ -29,7 +29,7 @@ class Student
         //overloading new operator
         void* operator new (size_t Obj_size) //size_t type variables will allocate the maximum size in bytes as per your requirement at run-time
         {
-            void *pointer; //declaring void pointer for malloc bacause this is a custom object, we don't really know/have a primitive type for this one
+            void *pointer; //declaring void pointer for malloc because this is a custom object, we don't really know/have a primitive type for this one
             cout << "The size (bytes) which is being allocated on the heap for your object is - " << Obj_size << endl;
             pointer = malloc(Obj_size);
             return pointer;
