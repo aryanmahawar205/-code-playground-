@@ -35,6 +35,7 @@ class Student
             return pointer;
         }
 
+        //overloading delete operator
         void operator delete (void *objectPointer)
         {
             free(objectPointer);
