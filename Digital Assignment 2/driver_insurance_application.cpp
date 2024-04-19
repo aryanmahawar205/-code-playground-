@@ -1,7 +1,7 @@
 //this code will serve as a simple and basic application for Cab Drivers
 //in this we calculate the premium rate for each driver based on their state of residence (either TN for Tamil Nadu or KE for Kerala)
 //the application displays Invalid Input if state of residence is anything other than TN or KE
-//also the age of th e driver should lie between 16 to 80 years (inclusive of both), else again it displays Invalid Input
+//also the age of the driver should lie between 16 to 80 years (inclusive of both), else again it displays Invalid Input
 //the application also uses static data members and static member function to return the total drivers (in this case 3) created and display the same
 //it also destructs the objects once the task of premium calculation is completed
 
