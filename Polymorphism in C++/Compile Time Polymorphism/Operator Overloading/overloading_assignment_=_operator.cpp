@@ -24,7 +24,7 @@ class Test
 
         void setX(int set_X)
         {
-            x = new int(set_X);
+            *x = set_X;
         }
 
         void print()
@@ -37,7 +37,16 @@ class Test
             delete x;
         }
 
+        //overloading assignment (=) operator
+        Test& operator = (const Test &rhs)
+        {
+            if (this != &rhs)
+            {
+                *x = *rhs.x;
+            }
 
+            return *this;
+        }
 };
 
 int main()
@@ -48,13 +57,13 @@ int main()
 
     //t1.print(); t2.print();
 
-    t2 = t1;
+    t2 = t1; //here the compiler performs a shallow copy and not deep copy which is why we see the issue in line 55 (if overloading not done)
 
     t1.print(); t2.print();
 
     t1.setX(20);
 
-    t1.print(); t2.print();
+    t1.print(); t2.print(); //the problem arises here when both t1 and t2 print the value 20 when we had only assigned 20 to t1 above (if overloading not done)
 
     return 0;
 }
