@@ -40,9 +40,9 @@ class Test
         //overloading assignment (=) operator
         Test& operator = (const Test &rhs)
         {
-            if (this != &rhs)
+            if (this != &rhs) //checking self assignment case (what if we do t1 = t1)
             {
-                *x = *rhs.x;
+                *(this->x) = *rhs.x;
             }
 
             return *this;
