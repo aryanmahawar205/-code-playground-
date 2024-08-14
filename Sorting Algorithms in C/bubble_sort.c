@@ -27,6 +27,7 @@ void BubbleSort(int data[], int size)
 {
     for (int i = 0; i < (size-1); i++)
     {
+        int swapped = 0;
         for (int j = 0; j < (size-i-1); j++)
         {
             if (data[j] > data[j+1])
@@ -34,7 +35,13 @@ void BubbleSort(int data[], int size)
                 int temp = data[j];
                 data[j] = data[j+1];
                 data[j+1] = temp;
+                swapped = 1;
             }
+        }
+
+        if (swapped == 0)
+        {
+            break;
         }
     }
 }
