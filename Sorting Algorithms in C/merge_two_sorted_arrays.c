@@ -47,7 +47,7 @@ void MergeArray(int array1[], int size1, int array2[], int size2, int array3[])
     while (j < size2)
     {
         array3[mergedIndex] = array2[j];
-        mergedIndex++; i++;
+        mergedIndex++; j++;
     }
 }
 
