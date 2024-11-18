@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int findLevel(int V, int E, int edges[][2], int X) {
+    int** adj = (int**)malloc(V * sizeof(int*));
+    for (int i = 0; i < V; i++) {
+        adj[i] = (int*)malloc(V * sizeof(int));
+        for (int j = 0; j < V; j++) {
+            adj[i][j] = 0;
+        }
+    }
+
+    for (int i = 0; i < E; i++) {
+        int u = edges[i][0];
+        int v = edges[i][1];
+        adj[u][v] = 1;
+        adj[v][u] = 1;
+    }
+
+    if (X >= V) {
+        for (int i = 0; i < V; i++) {
+            free(adj[i]);
+        }
+        free(adj);
+        return -1;
+    }
+
+    int* queue = (int*)malloc(V * sizeof(int));
+    int front = -1;
+    int rear = -1;
+
+    queue[++rear] = 0;
+    int level = 0;
+
+    bool* visited = (bool*)malloc(V * sizeof(bool));
+    for (int i = 0; i < V; i++) {
+        visited[i] = false;
+    }
+    visited[0] = true;
+
+    while (front != rear) {
+        int currentNode = queue[++front];
+        if (currentNode == X) {
+            free(visited);
+            free(queue);
+            for (int i = 0; i < V; i++) {
+                free(adj[i]);
+            }
+            free(adj);
+            return level;
+        }
+        for (int neighbor = 0; neighbor < V; neighbor++) {
+            if (adj[currentNode][neighbor] && !visited[neighbor]) {
+                queue[++rear] = neighbor;
+                visited[neighbor] = true;
+            }
+        }
+        level++;
+    }
+
+    free(visited);
+    free(queue);
+    for (int i = 0; i < V; i++) {
+        free(adj[i]);
+    }
+    free(adj);
+
+    return -1;
+}
+
+int main() {
+    int V, E;
+    scanf("%d", &V);
+    scanf("%d", &E);
+
+    int edges[E][2];
+    for (int i = 0; i < E; i++) {
+        scanf("%d %d", &edges[i][0], &edges[i][1]);
+    }
+
+    int X;
+    scanf("%d", &X);
+    int level = findLevel(V, E, edges, X);
+    printf("%d\n", level);
+
+    return 0;
+}

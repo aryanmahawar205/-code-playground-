@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+int row[] = {-1, 1, 0, 0};
+int col[] = {0, 0, -1, 1};
+
+bool is_valid(int x, int y, int rows, int columns) {
+    return (x >= 0 && x < rows && y >= 0 && y < columns);
+}
+
+int dfs(char grid[][100], bool visited[][100], int x, int y, int rows, int columns, int length) {
+    visited[x][y] = true;
+    int max_length = length;
+
+    for (int i = 0; i < 4; i++) {
+        int new_row = x + row[i];
+        int new_column = y + col[i];
+
+        if (is_valid(new_row, new_column, rows, columns) && !visited[new_row][new_column] && grid[new_row][new_column] != grid[x][y]) {
+            int new_length = dfs(grid, visited, new_row, new_column, rows, columns, length + 1);
+            max_length = (max_length > new_length) ? max_length : new_length;
+        }
+    }
+
+    visited[x][y] = false;
+    return max_length;
+}
+
+int find_longest_path(char grid[][100], int rows, int columns) {
+    int max_length = 0;
+    bool visited[100][100] = {false};
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (!visited[i][j]) {
+                int length = dfs(grid, visited, i, j, rows, columns, 1);
+                max_length = (max_length > length) ? max_length : length;
+            }
+        }
+    }
+
+    return max_length;
+}
+
+int main() {
+    int rows, columns;
+    scanf("%d %d", &rows, &columns);
+
+    char grid[100][100];
+
+    for (int i = 0; i < rows; i++) {
+        scanf("%s", grid[i]);
+    }
+
+    int longest_path = find_longest_path(grid, rows, columns);
+    printf("%d\n", longest_path);
+
+    return 0;
+}

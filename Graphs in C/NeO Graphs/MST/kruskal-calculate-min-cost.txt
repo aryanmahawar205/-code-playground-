@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Edge {
+    int source;
+    int destination;
+    int weight;
+};
+
+struct UnionFind {
+    int* parent;
+    int* rank;
+};
+
+struct UnionFind* createUnionFind(int size) {
+    struct UnionFind* uf = (struct UnionFind*)malloc(sizeof(struct UnionFind));
+    uf->parent = (int*)malloc(size * sizeof(int));
+    uf->rank = (int*)malloc(size * sizeof(int));
+    for (int i = 0; i < size; i++) {
+        uf->parent[i] = i;
+        uf->rank[i] = 0;
+    }
+    return uf;
+}
+
+int find(struct UnionFind* uf, int x) {
+    if (uf->parent[x] != x) {
+        uf->parent[x] = find(uf, uf->parent[x]);
+    }
+    return uf->parent[x];
+}
+
+void unionSets(struct UnionFind* uf, int x, int y) {
+    int rootX = find(uf, x);
+    int rootY = find(uf, y);
+    if (rootX != rootY) {
+        if (uf->rank[rootX] < uf->rank[rootY]) {
+            uf->parent[rootX] = rootY;
+        } else if (uf->rank[rootX] > uf->rank[rootY]) {
+            uf->parent[rootY] = rootX;
+        } else {
+            uf->parent[rootY] = rootX;
+            uf->rank[rootX]++;
+        }
+    }
+}
+
+int compareEdges(const void* a, const void* b) {
+    return ((struct Edge*)a)->weight - ((struct Edge*)b)->weight;
+}
+
+int findMinimumCost(int numCities, struct Edge* edges, int numSegments) {
+    qsort(edges, numSegments, sizeof(struct Edge), compareEdges);
+    struct UnionFind* uf = createUnionFind(numCities);
+    int minimumCost = 0;
+    int numTracks = 0;
+
+    for (int i = 0; i < numSegments; i++) {
+        int source = edges[i].source;
+        int destination = edges[i].destination;
+        int weight = edges[i].weight;
+
+        if (find(uf, source) != find(uf, destination)) {
+            unionSets(uf, source, destination);
+            minimumCost += weight;
+            numTracks++;
+
+            if (numTracks == numCities - 1) {
+                break;
+            }
+        }
+    }
+
+    if (numTracks < numCities - 1) {
+        return -1;
+    }
+
+    return minimumCost;
+}
+
+int main() {
+    int numCities, numSegments;
+    scanf("%d", &numCities);
+    scanf("%d", &numSegments);
+
+    struct Edge* edges = (struct Edge*)malloc(numSegments * sizeof(struct Edge));
+    for (int i = 0; i < numSegments; i++) {
+        scanf("%d %d %d", &edges[i].source, &edges[i].destination, &edges[i].weight);
+    }
+
+    int minimumCost = findMinimumCost(numCities, edges, numSegments);
+    if (minimumCost == -1) {
+        printf("It is not possible to connect all cities.\n");
+    } else {
+        printf("%d", minimumCost);
+    }
+
+    free(edges);
+    return 0;
+}

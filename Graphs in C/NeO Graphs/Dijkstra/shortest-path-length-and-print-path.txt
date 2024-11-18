@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+#define MAX_SIZE 100
+
+void addEdge(int adj[MAX_SIZE][MAX_SIZE], int src, int dest)
+{
+    adj[src][dest] = 1;
+    adj[dest][src] = 1;
+}
+
+void dijkstra(int adj[MAX_SIZE][MAX_SIZE], int src, int dest, int v)
+{
+    int pred[MAX_SIZE];
+    int dist[MAX_SIZE];
+    int visited[MAX_SIZE] = {0};
+
+    for (int i = 0; i < v; i++)
+    {
+        dist[i] = INT_MAX;
+        pred[i] = -1;
+    }
+
+    dist[src] = 0;
+    int current = src;
+
+    while (!visited[dest])
+    {
+        visited[current] = 1;
+
+        for (int i = 0; i < v; i++)
+        {
+            if (!visited[i] && adj[current][i])
+            {
+                if (dist[current] + 1 < dist[i])
+                {
+                    dist[i] = dist[current] + 1;
+                    pred[i] = current;
+                }
+            }
+        }
+
+        // Find the next vertex with the shortest distance
+        int minDist = INT_MAX;
+        for (int i = 0; i < v; i++)
+        {
+            if (!visited[i] && dist[i] < minDist)
+            {
+                minDist = dist[i];
+                current = i;
+            }
+        }
+    }
+
+    printf("Shortest path length: %d\n", dist[dest]);
+    printf("Path: ");
+
+    int path[MAX_SIZE];
+    int count = 0;
+    int crawl = dest;
+    path[count++] = crawl;
+    while (pred[crawl] != -1)
+    {
+        path[count++] = pred[crawl];
+        crawl = pred[crawl];
+    }
+
+    for (int i = count - 1; i >= 0; i--)
+    {
+        printf("%d ", path[i]);
+    }
+}
+
+int main()
+{
+    int v;
+    scanf("%d", &v);
+
+    int adj[MAX_SIZE][MAX_SIZE];
+    for (int i = 0; i < MAX_SIZE; i++)
+    {
+        for (int j = 0; j < MAX_SIZE; j++)
+        {
+            adj[i][j] = 0;
+        }
+    }
+
+    int edges;
+    scanf("%d", &edges);
+
+    for (int i = 0; i < edges; i++)
+    {
+        int src, dest;
+        scanf("%d %d", &src, &dest);
+        addEdge(adj, src, dest);
+    }
+
+    int source, dest;
+    scanf("%d %d", &source, &dest);
+
+    dijkstra(adj, source, dest, v);
+
+    return 0;
+}

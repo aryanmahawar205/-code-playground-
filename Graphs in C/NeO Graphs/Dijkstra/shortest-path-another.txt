@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+struct Graph {
+    int V;
+    int** adj;
+};
+
+void addEdge(struct Graph* g, int from, int to, int weight) {
+    g->adj[from][to] = weight;
+    g->adj[to][from] = weight;
+}
+
+int minDistance(const int dist[], const int sptSet[], int V) {
+    int min = INT_MAX;
+    int minIndex = -1;
+
+    for (int u = 0; u < V; u++) {
+        if (!sptSet[u] && dist[u] < min) {
+            min = dist[u];
+            minIndex = u;
+        }
+    }
+
+    return minIndex;
+}
+
+void dijkstra(struct Graph* g, int src, int dist[]) {
+    int V = g->V;
+    int sptSet[V];
+
+    for (int i = 0; i < V; i++) {
+        dist[i] = INT_MAX;
+        sptSet[i] = 0;
+    }
+
+    dist[src] = 0;
+
+    for (int count = 0; count < V; count++) {
+        int u = minDistance(dist, sptSet, V);
+        sptSet[u] = 1;
+
+        for (int v = 0; v < V; v++) {
+            if (!sptSet[v] && g->adj[u][v] && dist[u] != INT_MAX && dist[u] + g->adj[u][v] < dist[v]) {
+                dist[v] = dist[u] + g->adj[u][v];
+            }
+        }
+    }
+}
+
+int main() {
+    int V, E;
+    scanf("%d", &V);
+    scanf("%d", &E);
+
+    struct Graph g;
+    g.V = V;
+
+    g.adj = (int**)malloc(V * sizeof(int*));
+    for (int i = 0; i < V; i++) {
+        g.adj[i] = (int*)malloc(V * sizeof(int));
+        for (int j = 0; j < V; j++) {
+            g.adj[i][j] = 0;
+        }
+    }
+
+    for (int i = 0; i < E; i++) {
+        int from, to, weight;
+        scanf("%d %d %d", &from, &to, &weight);
+        addEdge(&g, from, to, weight);
+    }
+
+    int src;
+    scanf("%d", &src);
+
+    int* shortestDistances = (int*)malloc(V * sizeof(int));
+    dijkstra(&g, src, shortestDistances);
+
+    printf("Shortest distances from vertex %d to all other vertices: ", src);
+    for (int i = 0; i < V; i++) {
+        printf("%d ", shortestDistances[i]);
+    }
+    printf("\n");
+
+    free(shortestDistances);
+
+    for (int i = 0; i < V; i++) {
+        free(g.adj[i]);
+    }
+    free(g.adj);
+
+    return 0;
+}

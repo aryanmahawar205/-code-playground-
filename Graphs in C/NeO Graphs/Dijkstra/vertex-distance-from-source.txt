@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <limits.h>
+#include <cstdlib>
+
+struct Graph {
+    int V;
+    int** graph;
+};
+
+void print_solution(int* dist, int V) {
+    printf("Vertex \tDistance from Source\n");
+    for (int node = 0; node < V; node++) {
+        printf("%d\t\t%d\n", node, dist[node]);
+    }
+}
+
+int min_distance(int* dist, int* spt_set, int V) {
+    int min_dist = INT_MAX;
+    int min_index = -1;
+
+    for (int u = 0; u < V; u++) {
+        if (!spt_set[u] && dist[u] < min_dist) {
+            min_dist = dist[u];
+            min_index = u;
+        }
+    }
+
+    return min_index;
+}
+
+void dijkstra(struct Graph* g, int src) {
+    int* dist = new int[g->V];
+    int* spt_set = new int[g->V];
+
+    for (int i = 0; i < g->V; i++) {
+        dist[i] = INT_MAX;
+        spt_set[i] = 0;
+    }
+
+    dist[src] = 0;
+
+    for (int count = 0; count < g->V - 1; count++) {
+        int u = min_distance(dist, spt_set, g->V);
+        spt_set[u] = 1;
+
+        for (int v = 0; v < g->V; v++) {
+            if (!spt_set[v] && g->graph[u][v] > 0 && dist[u] != INT_MAX &&
+                dist[u] + g->graph[u][v] < dist[v]) {
+                dist[v] = dist[u] + g->graph[u][v];
+            }
+        }
+    }
+
+    print_solution(dist, g->V);
+
+    delete[] dist;
+    delete[] spt_set;
+}
+
+int main() {
+    int vertices;
+    scanf("%d", &vertices);
+
+    struct Graph g;
+    g.V = vertices;
+    g.graph = (int**)malloc(vertices * sizeof(int*));
+    for (int i = 0; i < vertices; i++) {
+        g.graph[i] = (int*)malloc(vertices * sizeof(int));
+        for (int j = 0; j < vertices; j++) {
+            scanf("%d", &g.graph[i][j]);
+        }
+    }
+
+    int src;
+    scanf("%d", &src);
+
+    dijkstra(&g, src);
+
+    // Free memory
+    for (int i = 0; i < vertices; i++) {
+        free(g.graph[i]);
+    }
+    free(g.graph);
+
+    return 0;
+}

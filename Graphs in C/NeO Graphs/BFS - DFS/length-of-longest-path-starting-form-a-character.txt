@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX_SIZE 100
+
+// Function prototypes
+bool isValid(int x, int y, int rows, int cols);
+bool isAdjacent(char c1, char c2);
+int DFS(char matrix[MAX_SIZE][MAX_SIZE], int rows, int cols, int x, int y);
+
+// Main function
+int main() {
+    // Read input
+    int rows, cols;
+    scanf("%d%d", &rows, &cols);
+    char matrix[MAX_SIZE][MAX_SIZE];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            scanf(" %c", &matrix[i][j]);
+        }
+    }
+    char startChar;
+    scanf(" %c", &startChar);
+
+    // Find the longest path starting from startChar
+    int longestPath = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (matrix[i][j] == startChar) {
+                int pathLength = DFS(matrix, rows, cols, i, j);
+                if (pathLength > longestPath) {
+                    longestPath = pathLength;
+                }
+            }
+        }
+    }
+
+    // Print the result
+    printf("The length of the longest path with consecutive characters starting from character %c is %d\n", startChar, longestPath);
+
+    return 0;
+}
+
+// Check if the given position is within the bounds of the matrix
+bool isValid(int x, int y, int rows, int cols) {
+    return (x >= 0 && x < rows && y >= 0 && y < cols);
+}
+
+// Check if c2 is an adjacent character of c1 (c2 should come after c1 alphabetically)
+bool isAdjacent(char c1, char c2) {
+    return (c2 == c1 + 1);
+}
+
+// DFS function to find the longest path starting from the given position
+int DFS(char matrix[MAX_SIZE][MAX_SIZE], int rows, int cols, int x, int y) {
+    // Mark the current position as visited
+    bool visited[MAX_SIZE][MAX_SIZE] = {false};
+    visited[x][y] = true;
+
+    // Check all 8 adjacent positions
+    int maxPathLength = 1;
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            if (isValid(x+i, y+j, rows, cols) && !visited[x+i][y+j] && isAdjacent(matrix[x][y], matrix[x+i][y+j])) {
+                int pathLength = 1 + DFS(matrix, rows, cols, x+i, y+j);
+                if (pathLength > maxPathLength) {
+                    maxPathLength = pathLength;
+                }
+            }
+        }
+    }
+
+    return maxPathLength;
+}

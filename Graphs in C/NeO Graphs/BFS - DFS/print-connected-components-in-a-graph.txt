@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Graph {
+    int V;
+    int** adjListArray;
+};
+
+struct Graph* createGraph(int V) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->V = V;
+    graph->adjListArray = (int**)malloc(V * sizeof(int*));
+    for (int i = 0; i < V; i++) {
+        graph->adjListArray[i] = (int*)calloc(V, sizeof(int));
+    }
+    return graph;
+}
+
+void addEdge(struct Graph* graph, int src, int dest) {
+    graph->adjListArray[src][dest] = 1;
+    graph->adjListArray[dest][src] = 1;
+}
+
+void DFSUtil(struct Graph* graph, int v, int* visited) {
+    visited[v] = 1;
+    printf("%d ", v);
+
+    for (int x = 0; x < graph->V; x++) {
+        if (graph->adjListArray[v][x] && !visited[x])
+            DFSUtil(graph, x, visited);
+    }
+}
+
+void connectedComponents(struct Graph* graph) {
+    int* visited = (int*)calloc(graph->V, sizeof(int));
+    for (int v = 0; v < graph->V; ++v) {
+        if (!visited[v]) {
+            DFSUtil(graph, v, visited);
+            printf("\n");
+        }
+    }
+    free(visited);
+}
+
+void freeGraph(struct Graph* graph) {
+    for (int i = 0; i < graph->V; i++) {
+        free(graph->adjListArray[i]);
+    }
+    free(graph->adjListArray);
+    free(graph);
+}
+
+int main() {
+    int vertices;
+    scanf("%d", &vertices);
+
+    struct Graph* g = createGraph(vertices);
+
+    while (1) {
+        int u, v;
+        scanf("%d %d", &u, &v);
+        if (u == -1 || v == -1) {
+            break;
+        }
+        addEdge(g, u, v);
+    }
+
+    printf("Following are connected components:\n");
+    connectedComponents(g);
+
+    freeGraph(g);
+
+    return 0;
+}

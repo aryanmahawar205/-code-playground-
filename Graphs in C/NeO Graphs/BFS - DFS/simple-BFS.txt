@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+void BFS(int** graph, int numCities, int source) {
+    bool* visited = (bool*)malloc(numCities * sizeof(bool));
+    for (int i = 0; i < numCities; i++) {
+        visited[i] = false;
+    }
+
+    int* queue = (int*)malloc(numCities * sizeof(int));
+    int front = -1;  
+    int rear = -1;   
+
+    visited[source] = true;
+    queue[++rear] = source;
+
+    while (front != rear) {
+        int currentCity = queue[++front];
+
+        printf("%d ", currentCity);
+
+        for (int i = 0; i < numCities; i++) {
+            if (graph[currentCity][i] == 1 && !visited[i]) {
+                visited[i] = true;
+                queue[++rear] = i;
+            }
+        }
+    }
+
+    free(visited);
+    free(queue);
+}
+
+int main() {
+    int numCities, numConnections;
+    scanf("%d %d", &numCities, &numConnections);
+
+    int** graph = (int**)malloc(numCities * sizeof(int*));
+    for (int i = 0; i < numCities; i++) {
+        graph[i] = (int*)malloc(numCities * sizeof(int));
+        for (int j = 0; j < numCities; j++) {
+            graph[i][j] = 0;
+        }
+    }
+
+    for (int i = 0; i < numConnections; i++) {
+        int a, b;
+        scanf("%d %d", &a, &b);
+        graph[a][b] = 1;
+    }
+
+    int source;
+    scanf("%d", &source);
+
+    BFS(graph, numCities, source);
+
+    for (int i = 0; i < numCities; i++) {
+        free(graph[i]);
+    }
+    free(graph);
+
+    return 0;
+}
